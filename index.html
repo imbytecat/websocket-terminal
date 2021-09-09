@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/xterm@4.14.0/css/xterm.css" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <script src="https://unpkg.com/xterm@4.14.0/lib/xterm.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div id="terminal"></div>
+  <script>
+    function utoa(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+    function atou(str) {
+      return decodeURIComponent(escape(window.atob(str)));
+    }
+
+    var sock = new WebSocket("ws://localhost:9000/pty")
+    sock.onerror = function (e) {
+      console.log("socket error", e)
+    }
+
+    var term = new Terminal();
+
+    term.open(document.getElementById('terminal'))
+
+    term.onData((data) => {
+      sock.send(utoa(data))
+    })
+
+    sock.onmessage = function (msg) {
+      term.write(atou(msg.data));
+    }
+  </script>
+</body>
+
+</html>
