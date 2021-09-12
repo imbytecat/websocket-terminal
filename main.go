@@ -18,8 +18,8 @@ package main
 import (
 	"encoding/base64"
 	"flag"
-	"github.com/gorilla/websocket"
 	"github.com/creack/pty"
+	"github.com/gorilla/websocket"
 	"io"
 	"log"
 	"net/http"
