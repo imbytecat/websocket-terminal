@@ -66,7 +66,6 @@ func ptyHandler(w http.ResponseWriter, r *http.Request) {
 	wp.Start()
 
 	// copy everything from the pty master to the websocket
-	// using base64 encoding for now due to limitations in term.js
 	go func() {
 		buf := make([]byte, 128)
 		// TODO: more graceful exit on socket close / process exit
@@ -89,7 +88,7 @@ func ptyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	// read from the web socket, copying to the pty master
+	// read from websocket, copying to the pty master
 	// messages are expected to be text and base64 encoded
 	for {
 		mt, payload, err := conn.ReadMessage()
@@ -101,8 +100,6 @@ func ptyHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		switch mt {
-		case websocket.BinaryMessage:
-			log.Printf("Ignoring binary message: %q\n", payload)
 		case websocket.TextMessage:
 			buf := make([]byte, base64.StdEncoding.DecodedLen(len(payload)))
 			_, err := base64.StdEncoding.Decode(buf, payload)
