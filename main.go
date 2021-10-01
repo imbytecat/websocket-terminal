@@ -29,8 +29,6 @@ import (
 var addrFlag, cmdFlag, staticFlag string
 
 var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1,
-	WriteBufferSize: 1,
 	CheckOrigin: func(r *http.Request) bool {
 		return true
 	},
