@@ -11,7 +11,6 @@ package main
  *
  * TODO:
  *  * make more things configurable
- *  * switch back to binary encoding after fixing term.js (see index.html)
  *  * make errors return proper codes to the web client
  */
 
