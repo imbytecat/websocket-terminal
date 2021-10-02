@@ -10,6 +10,3 @@ go build
 ./websocket-terminal -cmd /bin/bash -addr :9000
 ```
 
-## TODO
-
-- character encoding/decoding
