@@ -9,4 +9,3 @@ go mod tidy
 go build
 ./websocket-terminal -cmd /bin/bash -addr :9000
 ```
-
